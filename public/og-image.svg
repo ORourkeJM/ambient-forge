@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg-glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1e2030"/>
+      <stop offset="50%" stop-color="#0f1019"/>
+      <stop offset="100%" stop-color="#0a0a0f"/>
+    </radialGradient>
+    <radialGradient id="nebula1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4af0c0" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#2a9a7a" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#4af0c0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebula2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#b4a0ff" stop-opacity="0.25"/>
+      <stop offset="70%" stop-color="#8070b3" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#b4a0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebula3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4a9eff" stop-opacity="0.2"/>
+      <stop offset="60%" stop-color="#3070b3" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#4a9eff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-glow)"/>
+
+  <!-- Nebula clouds -->
+  <circle cx="500" cy="250" r="250" fill="url(#nebula1)"/>
+  <circle cx="350" cy="300" r="200" fill="url(#nebula2)"/>
+  <circle cx="700" cy="280" r="180" fill="url(#nebula3)"/>
+
+  <!-- Particles / orbs -->
+  <circle cx="420" cy="220" r="8" fill="#b4a0ff" opacity="0.6"/>
+  <circle cx="560" cy="180" r="6" fill="#4af0c0" opacity="0.7"/>
+  <circle cx="380" cy="320" r="5" fill="#4a9eff" opacity="0.5"/>
+  <circle cx="650" cy="260" r="7" fill="#d0c0ff" opacity="0.4"/>
+  <circle cx="500" cy="300" r="4" fill="#6affda" opacity="0.6"/>
+  <circle cx="300" cy="250" r="3" fill="#70b8ff" opacity="0.5"/>
+  <circle cx="720" cy="200" r="5" fill="#4af0c0" opacity="0.5"/>
+  <circle cx="440" cy="350" r="3" fill="#b4a0ff" opacity="0.4"/>
+
+  <!-- Constellation lines -->
+  <line x1="420" y1="220" x2="560" y2="180" stroke="#4af0c0" stroke-width="0.8" opacity="0.2"/>
+  <line x1="560" y1="180" x2="650" y2="260" stroke="#4a9eff" stroke-width="0.8" opacity="0.15"/>
+  <line x1="420" y1="220" x2="380" y2="320" stroke="#b4a0ff" stroke-width="0.8" opacity="0.15"/>
+  <line x1="380" y1="320" x2="500" y2="300" stroke="#4af0c0" stroke-width="0.6" opacity="0.12"/>
+  <line x1="500" y1="300" x2="650" y2="260" stroke="#d0c0ff" stroke-width="0.6" opacity="0.12"/>
+
+  <!-- Title -->
+  <text x="600" y="460" text-anchor="middle" font-family="Inter, SF Pro Display, system-ui, sans-serif" font-weight="800" font-size="64" fill="#e2e4f0" letter-spacing="-1">
+    Ambient Forge
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="510" text-anchor="middle" font-family="Inter, SF Pro Display, system-ui, sans-serif" font-weight="400" font-size="24" fill="#8b8faa" letter-spacing="4">
+    PROCEDURAL SOUNDSCAPES
+  </text>
+
+  <!-- Accent line -->
+  <rect x="500" y="530" width="200" height="2" rx="1" fill="#4af0c0" opacity="0.5"/>
+</svg>

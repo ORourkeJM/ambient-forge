@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Ambient Forge Color Palette ── */
+  --color-void: #0a0a0f;
+  --color-abyss: #0f1019;
+  --color-deep: #161824;
+  --color-surface: #1e2030;
+  --color-surface-2: #262940;
+  --color-surface-3: #2e3250;
+
+  --color-text: #e2e4f0;
+  --color-text-muted: #8b8faa;
+  --color-text-dim: #5c6080;
+
+  --color-border: #2a2d44;
+  --color-border-bright: #3d4166;
+
+  /* Accent: bioluminescent glow */
+  --color-glow: #4af0c0;
+  --color-glow-dim: #2a9a7a;
+  --color-glow-bright: #6affda;
+
+  /* Warm accent: ember */
+  --color-ember: #ff6b4a;
+  --color-ember-dim: #b34830;
+  --color-ember-bright: #ff8a70;
+
+  /* Cool accent: frost */
+  --color-frost: #4a9eff;
+  --color-frost-dim: #3070b3;
+  --color-frost-bright: #70b8ff;
+
+  /* Nature accent: moss */
+  --color-moss: #7acc4a;
+  --color-moss-dim: #5a9930;
+  --color-moss-bright: #9ae070;
+
+  /* Atmospheric: mist */
+  --color-mist: #b4a0ff;
+  --color-mist-dim: #8070b3;
+  --color-mist-bright: #d0c0ff;
+
+  /* Ring / knob UI */
+  --color-ring: #4af0c0;
+  --color-ring-track: #1e2030;
+}
+
+/* ── Base Styles ── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-void);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: rgba(74, 240, 192, 0.2);
+  color: var(--color-glow-bright);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-bright);
+}
+
+/* ── Range Input (knob sliders) ── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  height: 24px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-surface-2);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-glow);
+  margin-top: -6px;
+  box-shadow: 0 0 8px rgba(74, 240, 192, 0.4);
+  transition: box-shadow 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 14px rgba(74, 240, 192, 0.6);
+}
+
+input[type="range"]:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--color-glow);
+  outline-offset: 2px;
+}
+
+/* ── Transitions ── */
+button,
+a {
+  transition: all 0.15s ease;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-glow);
+  outline-offset: 2px;
+}
+
+/* ── Glass morphism utility ── */
+.glass {
+  background: rgba(30, 32, 48, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(42, 45, 68, 0.5);
+}
+
+/* ── Glow effect utility ── */
+.glow-text {
+  text-shadow: 0 0 20px rgba(74, 240, 192, 0.4);
+}
+
+.glow-box {
+  box-shadow: 0 0 20px rgba(74, 240, 192, 0.15), inset 0 0 20px rgba(74, 240, 192, 0.05);
+}
+
+/* ── Ambient pulse animation ── */
+@keyframes ambient-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes slow-drift {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-ambient-pulse {
+  animation: ambient-pulse 4s ease-in-out infinite;
+}
+
+.animate-slow-drift {
+  animation: slow-drift 6s ease-in-out infinite;
+}
+
+/* ── Slow spin for evolve icon ── */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* ── Mobile responsiveness ── */
+@media (max-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    margin-top: -8px;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ── Prevent overscroll bounce ── */
+html, body {
+  overscroll-behavior: none;
+}

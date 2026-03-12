@@ -1,0 +1,16 @@
+{
+  "name": "Ambient Forge",
+  "short_name": "AmbientForge",
+  "description": "Procedural ambient soundscape generator. Layer engines, tweak parameters, and drift away.",
+  "start_url": "/ambient-forge/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#4af0c0",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
