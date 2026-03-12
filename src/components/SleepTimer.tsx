@@ -24,7 +24,7 @@ export function SleepTimer() {
   const endTimeRef = useRef<number>(0)
   const originalVolumeRef = useRef<number>(0.8)
 
-  const { isPlaying, masterVolume } = useMixerStore()
+  const { isPlaying } = useMixerStore()
 
   const startTimer = useCallback((minutes: number) => {
     const seconds = minutes * 60
