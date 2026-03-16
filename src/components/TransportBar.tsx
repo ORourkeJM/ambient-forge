@@ -36,7 +36,7 @@ export function TransportBar({ onAddLayer }: TransportBarProps) {
   } = useMixerStore()
 
   const [playRing, setPlayRing] = useState(false)
-  const playRingTimeout = useRef<ReturnType<typeof setTimeout>>()
+  const playRingTimeout = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   const handlePlay = async () => {
     // Fire play ring animation
