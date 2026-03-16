@@ -4,6 +4,7 @@
 
 import { useEffect, useRef } from 'react'
 import { getAvailableEngines, implementedEngines } from '../audio/engines'
+import { uiSounds } from '../audio/uiSounds'
 import type { EngineType, EngineCategory } from '../types/audio'
 
 interface EnginePickerProps {
@@ -50,12 +51,12 @@ export function EnginePicker({ isOpen, onSelect, onClose }: EnginePickerProps) {
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-modal-overlay"
       onClick={(e) => {
         if (e.target === overlayRef.current) onClose()
       }}
     >
-      <div className="glass rounded-2xl w-full max-w-lg mx-4 max-h-[80vh] overflow-y-auto">
+      <div className="glass rounded-2xl w-full max-w-lg mx-4 max-h-[80vh] overflow-y-auto animate-modal-content">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <div>
@@ -87,6 +88,7 @@ export function EnginePicker({ isOpen, onSelect, onClose }: EnginePickerProps) {
                       key={engine.type}
                       onClick={() => {
                         if (isImplemented) {
+                          uiSounds.addLayer()
                           onSelect(engine.type)
                           onClose()
                         }

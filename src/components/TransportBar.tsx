@@ -2,7 +2,9 @@
  * TransportBar — Top control bar with play/pause, evolve, randomize, master volume, add layer.
  */
 
+import { useState, useRef } from 'react'
 import { useMixerStore } from '../stores/mixerStore'
+import { uiSounds } from '../audio/uiSounds'
 import type { EvolveSpeed } from '../audio/Evolver'
 
 interface TransportBarProps {
@@ -33,13 +35,52 @@ export function TransportBar({ onAddLayer }: TransportBarProps) {
     randomizeScene,
   } = useMixerStore()
 
+  const [playRing, setPlayRing] = useState(false)
+  const playRingTimeout = useRef<ReturnType<typeof setTimeout>>()
+
+  const handlePlay = async () => {
+    // Fire play ring animation
+    clearTimeout(playRingTimeout.current)
+    setPlayRing(true)
+    playRingTimeout.current = setTimeout(() => setPlayRing(false), 600)
+
+    // UI sound
+    if (isPlaying) {
+      uiSounds.pause()
+    } else {
+      uiSounds.play()
+    }
+
+    await togglePlay()
+  }
+
+  const handleEvolveToggle = () => {
+    if (isEvolving) {
+      uiSounds.toggleOff()
+    } else {
+      uiSounds.toggleOn()
+    }
+    toggleEvolve()
+  }
+
+  const handleShuffle = () => {
+    uiSounds.shuffle()
+    randomizeScene()
+  }
+
+  const handleAddLayer = () => {
+    uiSounds.click()
+    onAddLayer()
+  }
+
   return (
     <div className="glass rounded-2xl px-6 py-4 flex items-center gap-4 flex-wrap">
       {/* Play / Pause */}
       <button
-        onClick={togglePlay}
+        onClick={handlePlay}
         className={`
           w-12 h-12 rounded-full flex items-center justify-center transition-all flex-shrink-0
+          ${playRing ? 'animate-play-ring' : ''}
           ${isPlaying
             ? 'bg-glow/20 text-glow hover:bg-glow/30 glow-box'
             : 'bg-surface-2 text-text-muted hover:bg-surface-3 hover:text-text'}
@@ -75,7 +116,7 @@ export function TransportBar({ onAddLayer }: TransportBarProps) {
       <div className="flex items-center gap-2 ml-auto sm:ml-0">
         {/* Evolve toggle */}
         <button
-          onClick={toggleEvolve}
+          onClick={handleEvolveToggle}
           className={`
             flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all
             ${isEvolving
@@ -114,7 +155,7 @@ export function TransportBar({ onAddLayer }: TransportBarProps) {
 
         {/* Randomize */}
         <button
-          onClick={randomizeScene}
+          onClick={handleShuffle}
           className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-surface-2 text-text-muted hover:bg-surface-3 hover:text-text transition-all border border-transparent hover:border-border-bright"
           title="Generate a random soundscape"
         >
@@ -149,7 +190,7 @@ export function TransportBar({ onAddLayer }: TransportBarProps) {
 
       {/* Add Layer button */}
       <button
-        onClick={onAddLayer}
+        onClick={handleAddLayer}
         className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-glow/10 text-glow hover:bg-glow/20 transition-all text-sm font-semibold flex-shrink-0"
       >
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

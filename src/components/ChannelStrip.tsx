@@ -6,6 +6,7 @@
 
 import { useState } from 'react'
 import { useMixerStore } from '../stores/mixerStore'
+import { uiSounds } from '../audio/uiSounds'
 import { ParameterKnob } from './ParameterKnob'
 import type { Layer } from '../types/audio'
 
@@ -53,10 +54,29 @@ export function ChannelStrip({ layer, engineParams, engineIcon }: ChannelStripPr
 
   const sublabel = getEngineSublabel(layer)
 
+  const handleRemove = () => {
+    uiSounds.removeLayer()
+    removeLayer(layer.id)
+  }
+
+  const handleMuteToggle = () => {
+    uiSounds.mute()
+    toggleLayerMute(layer.id)
+  }
+
+  const handleSoloToggle = () => {
+    if (layer.soloed) {
+      uiSounds.toggleOff()
+    } else {
+      uiSounds.toggleOn()
+    }
+    toggleLayerSolo(layer.id)
+  }
+
   return (
     <div
       className={`
-        glass rounded-xl p-4 transition-all duration-300
+        glass rounded-xl p-4 transition-all duration-300 animate-layer-in
         ${layer.muted ? 'opacity-50' : ''}
         ${layer.soloed ? 'ring-1 ring-glow/40' : ''}
       `}
@@ -73,7 +93,7 @@ export function ChannelStrip({ layer, engineParams, engineIcon }: ChannelStripPr
           </div>
         </div>
         <button
-          onClick={() => removeLayer(layer.id)}
+          onClick={handleRemove}
           className="text-text-dim hover:text-ember transition-colors p-1 rounded"
           title="Remove layer"
         >
@@ -126,7 +146,7 @@ export function ChannelStrip({ layer, engineParams, engineIcon }: ChannelStripPr
       {/* Mute / Solo */}
       <div className="flex gap-2 mb-3">
         <button
-          onClick={() => toggleLayerMute(layer.id)}
+          onClick={handleMuteToggle}
           className={`
             flex-1 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all
             ${layer.muted
@@ -137,7 +157,7 @@ export function ChannelStrip({ layer, engineParams, engineIcon }: ChannelStripPr
           {layer.muted ? 'Muted' : 'Mute'}
         </button>
         <button
-          onClick={() => toggleLayerSolo(layer.id)}
+          onClick={handleSoloToggle}
           className={`
             flex-1 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all
             ${layer.soloed

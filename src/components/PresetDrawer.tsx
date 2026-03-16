@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react'
 import { usePresetStore } from '../stores/presetStore'
 import { useMixerStore } from '../stores/mixerStore'
+import { uiSounds } from '../audio/uiSounds'
 
 interface PresetDrawerProps {
   isOpen: boolean
@@ -43,6 +44,7 @@ export function PresetDrawer({ isOpen, onClose }: PresetDrawerProps) {
   }
 
   const handleLoad = async (sceneId: string) => {
+    uiSounds.presetLoad()
     const mixer = useMixerStore.getState()
     if (!mixer.isInitialized) {
       await mixer.init()
@@ -63,10 +65,10 @@ export function PresetDrawer({ isOpen, onClose }: PresetDrawerProps) {
       }}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-modal-overlay" />
 
       {/* Drawer */}
-      <div className="relative w-full max-w-sm bg-deep border-l border-border overflow-y-auto">
+      <div className="relative w-full max-w-sm bg-deep border-l border-border overflow-y-auto animate-modal-content">
         {/* Header */}
         <div className="sticky top-0 bg-deep/90 backdrop-blur-md border-b border-border px-5 py-4 flex items-center justify-between z-10">
           <h2 className="text-base font-bold text-text">Presets</h2>

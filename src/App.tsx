@@ -16,6 +16,7 @@ import { SleepTimer } from './components/SleepTimer'
 import { VisualizerSwitcher } from './visualizers/VisualizerSwitcher'
 import { getAvailableEngines } from './audio/engines'
 import { buildShareUrl, getSceneFromUrl, clearSceneFromUrl } from './lib/sceneUrl'
+import { uiSounds } from './audio/uiSounds'
 import type { EngineType } from './types/audio'
 import './index.css'
 
@@ -91,6 +92,7 @@ function App() {
 
     try {
       await navigator.clipboard.writeText(url)
+      uiSounds.shareCopied()
       setShareCopied(true)
       setTimeout(() => setShareCopied(false), 2000)
     } catch {
@@ -111,6 +113,7 @@ function App() {
 
   const handleLoadFactoryPreset = useCallback(
     async (presetId: string) => {
+      uiSounds.presetLoad()
       if (!isInitialized) await init()
       loadScene(presetId)
       const mixer = useMixerStore.getState()
@@ -342,6 +345,14 @@ function App() {
 
       {/* Global keyboard shortcuts */}
       <KeyboardShortcuts onAddLayer={() => setShowPicker(true)} />
+
+      {/* Footer credit */}
+      <footer className="px-6 py-3 flex items-center justify-center gap-1.5 text-[10px] text-text-dim/40">
+        <span>Crafted by</span>
+        <span className="text-mist/50 font-medium tracking-wide">Loom</span>
+        <span className="text-text-dim/20">·</span>
+        <span>2025</span>
+      </footer>
     </div>
   )
 }
